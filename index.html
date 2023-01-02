@@ -1,8 +1,53 @@
 <html>
-  <head>
-    <title>Argontheory</title>
-  </head>
-  <body>
-    Portfolio coming soon!
-  </body>
+
+<head>
+  <title>Argon</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body style="background-color: black;">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script>
+        const canvas = document.createElement('canvas');
+        const scene = new THREE.Scene();
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x00000, 1);
+
+        document.body.appendChild(renderer.domElement);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 60
+        
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x742bc6,
+            wireframe: false,
+        });
+        const geometry = new THREE.BoxGeometry(20, 20, 20);
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        const light = new THREE.HemisphereLight(0xd90368, 0x64a6bd, 1);
+        scene.add(light);
+
+        const frontLight = new THREE.DirectionalLight(0xffffff, 1);
+        frontLight.position.set(3000, 300, 3000).normalize();
+        scene.add(frontLight);
+
+        const animate = function () {
+            requestAnimationFrame(animate);
+            sphere.rotation.x += 0.006
+            sphere.rotation.y += 0.006
+            sphere.rotation.z += 0.001
+            renderer.render(scene, camera);
+        };
+
+        animate();
+  </script>
+</body>
+
 </html>
